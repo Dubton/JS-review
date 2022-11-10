@@ -20,9 +20,22 @@ function AddToCart(listing){
     document.getElementsByClassName("cart-items")[0].lastChild.appendChild(document.createElement("div")).setAttribute("class", "cart-quantity cart-column")
     document.getElementsByClassName("cart-items")[0].lastChild.childNodes[2].appendChild(document.createElement("input")).setAttribute("class", "cart-quantity-input")
     document.getElementsByClassName("cart-items")[0].lastChild.childNodes[2].childNodes[0].setAttribute("type", "number")
-    document.getElementsByClassName("cart-items")[0].lastChild.childNodes[2].childNodes[0].setAttribute("value", "1")
+    document.getElementsByClassName("cart-items")[0].lastChild.childNodes[2].childNodes[0].setAttribute("value", 1)
+    document.getElementsByClassName("cart-items")[0].lastChild.childNodes[2].childNodes[0].setAttribute("onchange", "updateTotal()")
     document.getElementsByClassName("cart-items")[0].lastChild.childNodes[2].appendChild(document.createElement("button")).setAttribute("class", "btn btn-danger")
     document.getElementsByClassName("cart-items")[0].lastChild.childNodes[2].childNodes[1].setAttribute("type", "button")
     document.getElementsByClassName("cart-items")[0].lastChild.childNodes[2].childNodes[1].setAttribute("onclick", "listRemove(this)")
     document.getElementsByClassName("cart-items")[0].lastChild.childNodes[2].childNodes[1].innerHTML="REMOVE"
+    updateTotal()
+}
+
+function updateTotal(){
+    let total=0
+    let i=1
+    while(i<document.getElementsByClassName("cart-items")[0].childNodes.length){
+        let value=document.getElementsByClassName("cart-items")[0].childNodes[i].childNodes[1].innerHTML.slice(1)*document.getElementsByClassName("cart-items")[0].childNodes[i].childNodes[2].childNodes[0].value
+        total=value+total
+        i++
+    }
+    document.getElementsByClassName("cart-total-price")[0].innerHTML="$"+`${total.toFixed(2)}`
 }
